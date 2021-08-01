@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+  olad:
+    image: bademux/openlighting:latest
+    ports:
+      - "9010:9010"
+      - "9090:9090"
+    volumes:
+      - "./olad/www:/usr/local/share/olad/www"
+
+  node:
+    # image: node:latest
+    build: .
+    user: "node"
+    working_dir: /home/node/app
+    ports:
+      - "8080:8080"
+    volumes:
+      - "./javascript/new-src:/home/node/app"
+      - "./olad/:/home/olad/"
+    command: "sleep infinity"
+
+# for grunt build
+# ---------------
+#    volumes:
+#      - ./target/:/home/olad/
